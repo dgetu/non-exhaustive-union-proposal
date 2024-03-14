@@ -21,7 +21,5 @@
     "outDir": "./dist-esm",
     "declarationDir": "./types"
   },
-  "files": ["./src/*"],
-  "include": ["src/**/*.ts"],
   "exclude": ["./dist-esm", "./types"]
 }

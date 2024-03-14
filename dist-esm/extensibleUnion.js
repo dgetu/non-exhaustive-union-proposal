@@ -2,9 +2,7 @@ function operation() {
     return "baz";
 }
 function operation2() {
-    return { kind: "baz", baz: true };
-}
-function operation3() {
+    // New API surface that isn't exposed in the client
     return { kind: "baz", baz: true };
 }
 // userland
@@ -59,25 +57,10 @@ function operation3() {
         // Property 'bar' does not exist on type 'BarType | BazType | UnknownObject<{ kind: string; }>'.
         //  Property 'bar' does not exist on type 'BazType'.
         const bar2 = result.bar;
-        const asdf = { kind: "sfjn" };
         // This typecast continues to have the correct behavior
         if (result.kind === "baz") {
             const baz = result.baz;
         }
-    }
-};
-() => {
-    const result = operation3();
-    if (result.kind === "foo") {
-        // Some sanity checks for assignability
-        const fooKindLiteralType = result;
-        const fooKind = result;
-        const kind = result.kind;
-    }
-    else {
-        // Exactly the same as above, but suppose the user somehow knows this is a "baz" even though
-        // it's not an extensible enum
-        const baz = result;
     }
 };
 // Some constructed types don't cause problems
@@ -88,16 +71,15 @@ function good(foo) {
     return foo;
 }
 // A user could easily fall into this trap. We shouldn't make it easy for them to construct their
-// own extensible unions with our unique symbol. Avoid exposing the symbol type, or any generics
-// that allow someone to extend it.
+// own extensible unions with our unique symbol. Avoid exposing the symbol type, or any parametric
+// types that allow someone to extend it.
 function bad(foo) {
-    if (foo === "foo") {
-        return;
-    }
-    // Error expected when `Foo` is extended with `"baz"`.
+    // Error expected when `Foo` is extended with `"bar"`.
     // @ts-expect-error
-    // Type '"bar" | "baz" | unique symbol' is not assignable to type 'Extensible<"bar", string> | undefined'.
-    //  Type '"baz"' is not assignable to type 'Extensible<"bar", string> | undefined'.
+    // Type '"foo" | "bar" | unique symbol' is not assignable to type 'Extensible<"foo", string> |
+    //  undefined'.
+    //
+    //  Type '"bar"' is not assignable to type 'Extensible<"foo", string> | undefined'.
     return foo;
 }
 function niceTry(foo) {
@@ -105,18 +87,13 @@ function niceTry(foo) {
         return;
     }
     // @ts-expect-error
-    // Type '"bar" | "baz" | unique symbol' is not assignable to type '"bar" | unique symbol | undefined'.
-    //  Type '"baz"' is not assignable to type '"bar" | unique symbol | undefined'.
+    // Type '"bar" | unique symbol' is not assignable to type '"bar" | unique symbol | undefined'.
+    //  Type 'unique symbol' is not assignable to type '"bar" | unique symbol | undefined'.
     return foo;
 }
 function why(foo) {
-    if (foo === "foo") {
-        return;
-    }
-    // Error expected when `Foo` is extended with `"baz"`.
-    // @ts-expect-error
-    // Type '"bar" | "baz" | unique symbol' is not assignable to type '"bar" | unique symbol | undefined'.
-    //  Type '"baz"' is not assignable to type '"bar" | unique symbol | undefined'.
+    // Error is expected here
+    // This breaks when `Foo` is extended with `"bar"`.
     return foo;
 }
 export {};
