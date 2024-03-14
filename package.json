@@ -1,0 +1,25 @@
+{
+  "name": "non-exhaustive-proposals",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist-esm/src/index.js",
+  "types": "types/*.d.ts",
+  "scripts": {
+    "format": "prettier --write --config ./.prettierrc.json **.md **.ts **.json",
+    "lint": "eslint --config ./.eslintrc.json --ext .ts src/"
+  },
+  "files": [
+    "dist/",
+    "dist-esm/src/",
+    "types/*.d.ts",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.11.27",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.2"
+  }
+}
