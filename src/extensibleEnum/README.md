@@ -182,7 +182,7 @@ colorOperation("red");
     <td>
 
 ```ts
-colorOperation("green");
+colorOperation("green" as Color);
 ```
 
 </td><td>

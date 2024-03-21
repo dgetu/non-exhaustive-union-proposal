@@ -58,6 +58,6 @@ if (outputColor === "red") {
     if (outputColor === "green") {
       const green: "green" = outputColor as "green";
     }
-    const unknown: string = outputColor as unknown as string;
+    const unknown: string = outputColor;
   }
 }
