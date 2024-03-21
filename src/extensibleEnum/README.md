@@ -65,7 +65,7 @@ Even with these drawbacks, it provides some benefits that we would hope to prese
 
 ### Non-Exhaustive Helper Type
 
-[(sample)](src/util/nonExhaustiveHelperType.ts)
+[(sample)](../util/nonExhaustiveHelperType.ts)
 
 Instead of defining a string type and an enum separately, we can define an extensible enum like this:
 
@@ -84,7 +84,7 @@ In this case Position would accept any string, while also suggesting "foo", "bar
 
 ### Extensible Unions
 
-[(sample)](src/util/extensibleUnion.ts)
+[(sample)](../util/extensibleUnion.ts)
 
 Instead of defining a string type and an enum separately, we can define an extensible enum like this:
 
@@ -112,12 +112,12 @@ declare function operation(color: Color);
     <th>Scenario</th>
     <th>
 
-[Extensible Union](src/util/extensibleUnion.ts)
+[Extensible Union](../util/extensibleUnion.ts)
 
 </th>
 <th>
 
-[Non-exhaustive Helper Type](src/util/nonExhaustiveHelperType.ts)
+[Non-exhaustive Helper Type](../util/nonExhaustiveHelperType.ts)
 
 </th>
 
